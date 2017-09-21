@@ -73,6 +73,25 @@
 </div>
 
 <header class="site-header page-element is-moved-by-drawer" role="banner" data-section-id="{{ section.id }}" data-section-type="header">
+
+  {% if section.settings.promo_bar_enable %}
+    <div id="NotificationPromo" class="notification notification--promo" data-text="{{ section.settings.promo_bar_text | strip_html | handle }}">
+      <div class="page-width notification__inner {% if section.settings.promo_bar_link != blank %} notification__inner--has-link{% endif %}">
+        {% if section.settings.promo_bar_link != blank %}
+          <a href="{{ section.settings.promo_bar_link }}" class="notification__link">
+            <span class="notification__message">{{ section.settings.promo_bar_text | escape }}</span>
+          </a>
+        {% else %}
+          <span class="notification__message">{{ section.settings.promo_bar_text | escape }}</span>
+        {% endif %}
+        <button type="button" class="text-link notification__close" id="NotificationPromoClose">
+          {% include 'icon-close' %}
+          <span class="icon__fallback-text">{{ 'cart.general.close_notification' | t }}</span>
+        </button>
+      </div>
+    </div>
+  {% endif %}
+  
   <div class="site-header__upper page-width">
     <div class="grid grid--table">
       <div class="grid__item small--one-quarter medium-up--hide">
@@ -223,23 +242,6 @@
     </div>
   </div>
 
-  {% if section.settings.promo_bar_enable %}
-    <div id="NotificationPromo" class="notification notification--promo" data-text="{{ section.settings.promo_bar_text | strip_html | handle }}">
-      <div class="page-width notification__inner {% if section.settings.promo_bar_link != blank %} notification__inner--has-link{% endif %}">
-        {% if section.settings.promo_bar_link != blank %}
-          <a href="{{ section.settings.promo_bar_link }}" class="notification__link">
-            <span class="notification__message">{{ section.settings.promo_bar_text | escape }}</span>
-          </a>
-        {% else %}
-          <span class="notification__message">{{ section.settings.promo_bar_text | escape }}</span>
-        {% endif %}
-        <button type="button" class="text-link notification__close" id="NotificationPromoClose">
-          {% include 'icon-close' %}
-          <span class="icon__fallback-text">{{ 'cart.general.close_notification' | t }}</span>
-        </button>
-      </div>
-    </div>
-  {% endif %}
 </header>
 
 {% schema %}
